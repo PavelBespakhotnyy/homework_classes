@@ -1,5 +1,4 @@
 class Student:
-
     def __init__(self, name, surname, gender):
         self.name = name
         self.surname = surname
@@ -60,6 +59,18 @@ class Student:
         else:
             print('Оценки у обоих студентов равны')
 
+    def average_grade(self, course):
+        summ = 0
+        counter = 0
+        for student in students:
+            if course in self.grades.keys():
+                grades = self.grades[course]
+                for grade in grades:
+                    summ += grade
+                    counter += 1
+        result = summ / counter
+        print(round(result, 1))
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -115,6 +126,18 @@ class Lecturer(Mentor):
 
         else:
             print('Оценки у обоих лекторов равны')
+
+    def average_grade(self, course):
+        summ = 0
+        counter = 0
+        for lecturer in lecturers:
+            if course in self.grades.keys():
+                grades = self.grades[course]
+                for grade in grades:
+                    summ += grade
+                    counter += 1
+        result = summ / counter
+        print(round(result, 1))
 
 
 class Rewiewer(Mentor):
@@ -176,7 +199,6 @@ connor.courses_attached = ['Python', 'C#', 'Java']
 # Оценивание лектора студентом
 jack.grade_lecturer(george, 'Python', 10)
 
-
 #    Вывод метода __str__
 # Student
 print(jack)
@@ -187,7 +209,6 @@ print(george)
 # Reviewer
 print(jessica)
 
-
 #    Сравнение
 # Студентов
 billy.comparison(jack)
@@ -195,6 +216,13 @@ billy.comparison(jack)
 # Лекторов
 george.comparison(olivia)
 
-
 # Оценивание Reviewer
 jessica.rate_hw(jack, 'Python', 8)
+
+# Расчет средний оценки за д/з по всем студентам в рамках конкретного курса
+students = [jack, billy]
+jack.average_grade('Python')
+
+# Расчет средней оценки за лекции всех лекторов в рамках курса
+lecturers = [george, olivia]
+george.average_grade('Python')
