@@ -35,7 +35,7 @@ class Student:
         else:
             return print('Что-то пошло не так...')
 
-    def comparison(self, anoter_student):
+    def __lt__(self, other):
         summ = 0
         counter = 0
         for el in self.grades.values():
@@ -45,19 +45,16 @@ class Student:
         self_average_grade = round(summ / counter, 2)
         summ = 0
         counter = 0
-        for el in anoter_student.grades.values():
+        for el in other.grades.values():
             for el1 in el:
                 summ += el1
                 counter += 1
-        anoter_student_average_grade = round(summ / counter, 2)
-        if self_average_grade > anoter_student_average_grade:
-            print(f'У студента {self.name} средний балл выше, чем у {anoter_student.name}')
-
-        elif self_average_grade < anoter_student_average_grade:
-            print(f'У студента {anoter_student.name} средний балл выше, чем у {self.name}')
-
+        other_average_grade = round(summ / counter, 2)
+        result = (self_average_grade > other_average_grade)
+        if result == True:
+            return print(f'У студента {self.name} средний балл выше, чем у {other.name}')
         else:
-            print('Оценки у обоих студентов равны')
+            return print(f'У студента {other.name} средний балл выше, чем у {self.name}')
 
     def average_grade(self, course):
         summ = 0
@@ -70,6 +67,8 @@ class Student:
                     counter += 1
         result = summ / counter
         print(round(result, 1))
+
+
 
 
 class Mentor:
@@ -103,7 +102,7 @@ class Lecturer(Mentor):
         result = f'{name}\n{surname}\n{average}'
         return result
 
-    def comparison(self, another_lecturer):
+    def __lt__(self, other):
         summ = 0
         counter = 0
         for el in self.grades.values():
@@ -113,19 +112,16 @@ class Lecturer(Mentor):
         self_average_grade = round(summ / counter, 2)
         summ = 0
         counter = 0
-        for el in another_lecturer.grades.values():
+        for el in other.grades.values():
             for el1 in el:
                 summ += el1
                 counter += 1
-        anoter_student_average_grade = round(summ / counter, 1)
-        if self_average_grade > anoter_student_average_grade:
-            print(f'У лектора {self.name} средний балл выше, чем у {another_lecturer.name}')
-
-        elif self_average_grade < anoter_student_average_grade:
-            print(f'У лектора {another_lecturer.name} средний балл выше, чем у {self.name}')
-
+        other_average_grade = round(summ / counter, 2)
+        result = (self_average_grade > other_average_grade)
+        if result == True:
+            return print(f'У лектора {self.name} средний балл выше, чем у {other.name}')
         else:
-            print('Оценки у обоих лекторов равны')
+            return print(f'У лектора {other.name} средний балл выше, чем у {self.name}')
 
     def average_grade(self, course):
         summ = 0
@@ -211,10 +207,10 @@ print(jessica)
 
 #    Сравнение
 # Студентов
-billy.comparison(jack)
+billy.__lt__(jack)
 
 # Лекторов
-george.comparison(olivia)
+george.__lt__(olivia)
 
 # Оценивание Reviewer
 jessica.rate_hw(jack, 'Python', 8)
